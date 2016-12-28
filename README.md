@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Adron/datadiluvium.png?label=ready&title=Ready)](https://waffle.io/Adron/datadiluvium)
 # Deluge
 
 [![Codeship Status for Adron/datadiluvium](https://img.shields.io/codeship/a60c0100-aedd-0134-48ce-6ab5102948e8/master.svg)](https://app.codeship.com/projects/192753) [![Docker Automated buil](https://img.shields.io/docker/automated/adron/deluge.svg)](https://hub.docker.com/r/adron/deluge/)
