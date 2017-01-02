@@ -1,0 +1,8 @@
+deluge_svc:
+  build:
+    image: deluge
+    dockerfile_path: Dockerfile
+#   links:
+#     - postgres
+# postgres:
+#   image: postgres:9.3.6
