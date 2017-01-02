@@ -18,3 +18,7 @@ cd ..
 mv -v docs/public/* docs
 cd docs
 rm -rf public
+cd ../
+git add -A
+git commit -m 'The latest hugo site publishing, now @ $( date +%m-%d-%y-%H%M ).'
+git push origin master
