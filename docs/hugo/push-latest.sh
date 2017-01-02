@@ -24,5 +24,5 @@ rm -rf public
 cd ../
 echo "Committing and pushing new site.\n * * * * *"
 git add -A
-git commit -m 'The latest hugo site publishing, now @ $( date +%m-%d-%y-%H%M ).'
+git commit -m 'The latest hugo site publishing from file $filename.'
 git push origin master
