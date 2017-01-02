@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Diluvium</title>
+    <link>http://datadiluvium.com/index.xml</link>
+    <description>Recent content on Data Diluvium</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Jan 2017 16:39:51 -0800</lastBuildDate>
+    <atom:link href="http://datadiluvium.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Features</title>
+      <link>http://datadiluvium.com/services/features/</link>
+      <pubDate>Sun, 01 Jan 2017 16:39:51 -0800</pubDate>
+      
+      <guid>http://datadiluvium.com/services/features/</guid>
+      <description>
+
+&lt;h2 id=&#34;data-diluvium&#34;&gt;Data Diluvium:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;More features and information coming soon for the data generation service.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;colligere&#34;&gt;Colligere:&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;More features and information coming soon for the CLI.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>http://datadiluvium.com/about/about/</link>
+      <pubDate>Thu, 29 Dec 2016 20:00:26 -0800</pubDate>
+      
+      <guid>http://datadiluvium.com/about/about/</guid>
+      <description>&lt;p&gt;A little about the origins of the Data Diluvium Project comes from two simple things I wanted. I&amp;rsquo;m going to assume others may find this useful also. This is the reason I&amp;rsquo;m moving forward with it from inception as open source software under a basic Apache-2.0 License.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;A way to generate random data that could be useful for a host of things; testing, data load, sample development, user interface setup, and other related things. You know, basically for everything where you need data to complete a development task efficiently but there usually isn&amp;rsquo;t any. Combine that with the intent and desire to have that data easily generated from a configuration file and inserted into a database or into a file format of my own preference. That&amp;rsquo;s what I, the prospective initial end user, wanted.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;A project that I could focus and write about, learn ways to implement with Go (while I went about learning the language and tool stack) and also a way to write about other tangential ideas that would have a good core project to reference. This is the other simple thing that I wanted.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Two simple things that actually lead to a full on project that actually has a little bit of complexity to it. In the coming blog articles I&amp;rsquo;ll be writing about the development efforts, issues, and implementation details of the effort.&lt;/p&gt;
+
+&lt;p&gt;If you want updates and related details, follow the Twitter account &lt;a href=&#34;https://twitter.com/datadiluvium&#34;&gt;@datadiluvium&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Until the next update, cheers!
+&lt;a href=&#34;https://twitter.com&#34;&gt;@Adron&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
