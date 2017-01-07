@@ -1,8 +1,6 @@
 package main
 
 import (
-  // "os"
-  // "fmt"
   "testing"
 )
 
@@ -18,6 +16,8 @@ func TestThingExists(t *testing.T) {
     )
   }
 }
+
+
 
 // func TestEnvironmentVariable(t *testing.T) {
 //   result := os.Getenv("VERIFICATION_PASS")
