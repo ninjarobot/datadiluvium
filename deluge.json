@@ -6,5 +6,13 @@
     {
         "title": "Another Generation Schema",
         "schema": "kv"
+    },
+    {
+        "title": "This Generation Schema",
+        "schema": "ts"
+    },
+    {
+        "title": "Geo Schemes",
+        "schema": "geo"
     }
 ]

@@ -1,34 +1,57 @@
 package main
 
 import (
-  "testing"
+	"testing"
 )
 
-func TestThingExists(t *testing.T) {
-  schemaRdbms := getPages()[0]
-  expectedResult := "rdbms"
+func TestRdbmsConfiguration(t *testing.T) {
+	schemaRdbms := getPages()[0]
+	expectedResult := "rdbms"
 
-  if schemaRdbms.Schema != expectedResult {
-    t.Error(
-      "For", schemaRdbms.Schema,
-      "expected", expectedResult,
-      "got", schemaRdbms.Schema,
-    )
-  }
+	if schemaRdbms.Schema != expectedResult {
+		t.Error(
+			"For", schemaRdbms.Schema,
+			"expected", expectedResult,
+			"got", schemaRdbms.Schema,
+		)
+	}
 }
 
+func TestKeyValueConfiguration(t *testing.T) {
+	schemaRdbms := getPages()[1]
+	expectedResult := "kv"
 
+	if schemaRdbms.Schema != expectedResult {
+		t.Error(
+			"For", schemaRdbms.Schema,
+			"expected", expectedResult,
+			"got", schemaRdbms.Schema,
+		)
+	}
+}
 
-// func TestEnvironmentVariable(t *testing.T) {
-//   result := os.Getenv("VERIFICATION_PASS")
-//
-//   fmt.Println(result)
-//
-//   if result != "Yes" {
-//     t.Error(
-//       "For", result,
-//       "expected", "Yes",
-//       "got", result,
-//     )
-//   }
-// }
+func TestTimeSeriesConfiguration(t *testing.T) {
+	schemaRdbms := getPages()[2]
+	expectedResult := "ts"
+
+	if schemaRdbms.Schema != expectedResult {
+		t.Error(
+			"For", schemaRdbms.Schema,
+			"expected", expectedResult,
+			"got", schemaRdbms.Schema,
+		)
+	}
+}
+
+func TestGeoDataConfiguration(t *testing.T) {
+	schemaRdbms := getPages()[3]
+	expectedResult := "geo"
+
+	if schemaRdbms.Schema != expectedResult {
+		t.Error(
+			"For", schemaRdbms.Schema,
+			"expected", expectedResult,
+			"got", schemaRdbms.Schema,
+		)
+	}
+}
