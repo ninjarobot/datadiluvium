@@ -1,9 +1,17 @@
-FROM golang:1.7.3-alpine
-RUN mkdir /app /local_gopath
+FROM golang:1.7.4-alpine
+
+ENV GOPATH /go
+
+RUN mkdir /app && \
+    apk add --update curl && \
+    rm -rf /var/cache/apk/*
+
 ADD . /app/
 WORKDIR /app
-RUN export GOPATH=/local_gopath && \
-  apk update && apk upgrade && \
+RUN apk update && apk upgrade && \
   apk add --no-cache git && \
-  go build -o main .
-CMD ["/app/main"]
+  curl https://glide.sh/get | sh
+
+RUN glide up && go get github.com/icrowley/fake && \
+  go build
+CMD ["/app/datadiluvium"]
