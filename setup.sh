@@ -12,6 +12,10 @@ if [ "$(uname)" == "Darwin" ]; then
         brew update
         brew install glide
     fi
+
+    echo "Installing jet cli."
+    brew cask install jet
+
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     echo "Installing Glide for Linux."
     sudo add-apt-repository ppa:masterminds/glide && sudo apt-get update
