@@ -28,3 +28,17 @@ elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
 fi
 
 glide install
+
+#!/usr/bin/env bash
+
+echo "Installing the Hugo static site generator."
+brew install hugo
+echo "Additional information on the Hugo installation."
+which hugo
+ls -l $( which hugo )
+hugo version
+
+echo "\nInstalling Hugo Theme now."
+cd docs/hugo
+mkdir themes
+git clone --depth 1 --recursive git@github.com:crakjie/landing-page-hugo.git themes
