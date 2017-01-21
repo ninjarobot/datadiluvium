@@ -5,7 +5,7 @@ if [ "$(uname)" == "Darwin" ]; then
 
     which -s brew
     if [[ $? != 0 ]] ; then
-        echo "Installing via curl && shell.\n"
+        echo "Installing via curl && shell."
         curl https://glide.sh/get | sh
     else
         echo "Brew detected, installing via 'brew install glide'."
@@ -38,7 +38,8 @@ which hugo
 ls -l $( which hugo )
 hugo version
 
-echo "\nInstalling Hugo Theme now."
+echo "Installing Hugo Theme now."
 cd docs/hugo
 mkdir themes
-git clone --depth 1 --recursive git@github.com:crakjie/landing-page-hugo.git themes
+cd themes
+git clone --depth 1 --recursive git@github.com:crakjie/landing-page-hugo.git

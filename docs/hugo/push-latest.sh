@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # timestamp=`date mm-dd-yy-HHMM`
 timestamp=$( date +%m-%d-%y-%H%M )
 echo $timestamp
