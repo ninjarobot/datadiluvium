@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true,
+    "compilerName": "fsc",
+    "compile": {
+      "includeFiles": [
+        "Program.fs"
+      ]
+    }
+  },
+  "tools": {
+    "dotnet-compile-fsc": "1.0.0-preview2.1-*"
+  },
+  "frameworks": {
+    "netcoreapp1.1": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.1.0"
+        },
+        "Microsoft.FSharp.Core.netcore": "1.0.0-alpha-*"
+      }
+    }
+  },
+  "dependencies": { 
+    "Suave": "2.0.2",
+    "Newtonsoft.Json": "9.0.1",
+    "System.Net.Http": "4.3.0"
+  }
+}
