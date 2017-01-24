@@ -185,3 +185,35 @@ startServer getACityWebPart
 ```
 
 Now you can get random cities from http://localhost:8080/random/city/ru.  Again, this isn't every bit of data available from `fake`, but it's a pattern that can be used to add more random data.
+
+Publishing
+----------
+
+With .NET Core, the build toolchain can publish releases that include a self-contained runtime, which must be specified in the project.json so that it will download them on `dotnet restore`.
+
+```
+"runtimes": {
+  "win10-x64": {},
+  "osx.10.11-x64": {},
+  "ubuntu.14.04-x64": {},
+  "debian.8-x64": {}
+}
+```
+
+To build for a certain runtime, use the following commands, which create a directory under `bin/release` with the executable and its dependencies.
+
+```
+dotnet build -r debian.8-x64
+dotnet publish -c release -r debian.8-x64
+```
+
+After running the above commands, a build for Debian 8 (64-bit) will be available at `bin/release/netcoreapp1.1/debian.8-x64/publish`, ready to compress and distribute or copy to a docker image.
+
+To execute it on the target platform, use the name used for `targetName` in project.json:
+
+```
+"outputName": "datadiluvium"
+```
+
+In this case, we can run with `./datadiluvium`.
+

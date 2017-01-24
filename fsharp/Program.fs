@@ -91,7 +91,8 @@ let main argv =
     { Title="hello"; Schema="world" } 
     |> JsonConvert.SerializeObject
     |> printfn "%s"
-    getPages "../deluge.json" |> Array.iter (fun p -> printfn "%A" p)
+    if File.Exists "../deluge.json" then
+        getPages "../deluge.json" |> Array.iter (fun p -> printfn "%A" p)
     async {
         let! russianCities = getCityData "ru"
         russianCities |> Seq.head |> printfn "%s"
