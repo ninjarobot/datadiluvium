@@ -1,7 +1,7 @@
 How this was implemented
 ------------------------
 
-With .NET Core installed using current GA (1.0.1), VSCode current GA, and IonIDE extention to VS Code.
+With .NET Core installed using [current GA (1.1 SDK)](https://www.microsoft.com/net/download/core#/current), VSCode current GA, and IonIDE extention to VS Code.
 
 mkdir fsharp
 dotnet new --lang=fsharp
