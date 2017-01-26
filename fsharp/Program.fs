@@ -61,7 +61,9 @@ let startServer getACityByLanguage =
                 [ pathScan "/random/city/%s" getACityByLanguage >=> setMimeType "text/plain" ]
             ]
 
-    let port = "8080"
+    let port = System.Environment.GetEnvironmentVariable "LISTEN_PORT" |> function
+               | null | "" -> "8080"
+               | s -> s
     let address = System.Net.IPAddress.Any
     startWebServer { defaultConfig with hideHeader=true; bindings = [HttpBinding.create HTTP address (Sockets.Port.Parse port)] } app
 
