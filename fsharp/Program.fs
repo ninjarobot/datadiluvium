@@ -41,16 +41,24 @@ let getLines url =
         return readLines s
     }
 
-
 /// Random number generator - we just need one of these for our application.
 let private rng = System.Random ()
 
-let getCityData language = 
-    async {
-        return!
-            sprintf "https://raw.githubusercontent.com/icrowley/fake/master/data/%s/cities" language 
-            |> getLines
+/// Retrieves the data from the url and returns a generator that picks on of the lines.
+let getRandomLines url =
+    let lines = getLines url |> Async.RunSynchronously
+    let arr = lines |> Seq.toArray
+    let len = arr.Length
+    seq {
+        yield arr.[rng.Next(len)]
     }
+
+/// Cache for the randomized sequence generated from data at a URI.
+let cache = System.Collections.Concurrent.ConcurrentDictionary<string, string seq>()
+
+let getRandomCity language = 
+    let uri = sprintf "https://raw.githubusercontent.com/icrowley/fake/master/data/%s/cities" language 
+    cache.GetOrAdd (uri, Func<string, string seq> (getRandomLines))
 
 /// Start the server, passing it a web part, basically an HTTP handler function.
 let startServer getACityByLanguage =
@@ -67,22 +75,13 @@ let startServer getACityByLanguage =
     let address = System.Net.IPAddress.Any
     startWebServer { defaultConfig with hideHeader=true; bindings = [HttpBinding.create HTTP address (Sockets.Port.Parse port)] } app
 
-/// Function to get a random city.  Needs to cache, but works.
-let getRandomCity lang = 
-    async {
-        let! cities = getCityData lang
-        let arr = cities |> Seq.toArray
-        let len = arr.Length
-        return arr.[rng.Next len]
-    }
-
 /// The Suave web part - an HTTP handler.  Deals with input checks and the HTTP response codes.
 let getACityWebPart lang = 
     fun (ctx:HttpContext) ->
         async {
             match lang with 
             | "en" | "ru" as lang ->
-                let! city = getRandomCity lang
+                let city = getRandomCity lang |> Seq.head
                 return! OK city ctx
             | _ -> return! BAD_REQUEST "Only 'en' or 'ru' language are supported." ctx
         }
@@ -95,10 +94,9 @@ let main argv =
     |> printfn "%s"
     if File.Exists "../deluge.json" then
         getPages "../deluge.json" |> Array.iter (fun p -> printfn "%A" p)
-    async {
-        let! russianCities = getCityData "ru"
-        russianCities |> Seq.head |> printfn "%s"
-    } |> Async.RunSynchronously
+    getRandomCity "ru"
+    |> Seq.head
+    |> printfn "%s"
 
     // Pass our web part to our server.
     startServer getACityWebPart
