@@ -29,59 +29,89 @@ let httpClient =
 
 // Get all the data at the specified URL and return as a sequence of lines.
 let getLines url = 
-    let readLines lines =
-        seq {
-            use sr = new System.IO.StreamReader(lines)
-            while not sr.EndOfStream do
-                yield sr.ReadLine ()
-        }
     async {
-        let! res = url |> Uri |> httpClient.GetAsync |> Async.AwaitTask
-        let! s = res.Content.ReadAsStreamAsync () |> Async.AwaitTask
-        return readLines s
+        use! res = url |> Uri |> httpClient.GetAsync |> Async.AwaitTask
+        use! s = res.Content.ReadAsStreamAsync () |> Async.AwaitTask
+        return
+            seq {
+                use sr = new System.IO.StreamReader (s)
+                while not sr.EndOfStream do
+                    yield sr.ReadLine ()
+            }
+            |> Seq.toArray
     }
-
 
 /// Random number generator - we just need one of these for our application.
 let private rng = System.Random ()
 
-let getCityData language = 
-    async {
-        return!
-            sprintf "https://raw.githubusercontent.com/icrowley/fake/master/data/%s/cities" language 
-            |> getLines
+/// Retrieves the data from the url and returns a generator that picks on of the lines.
+let getRandomLines url =
+    let lines = getLines url |> Async.RunSynchronously
+    let len = lines.Length
+    seq {
+        yield lines.[rng.Next(len)]
     }
 
+/// Cache for the randomized sequence generated from data at a URI.
+let cache = System.Collections.Concurrent.ConcurrentDictionary<string, string seq>()
+
+let baseUri = "https://raw.githubusercontent.com/icrowley/fake/master/data/"
+
+/// Language code for the fake data.
+type Language = string
+
+/// The type of fake data to return.
+type Fake =
+    | City of Language
+    | Country of Language
+    | Continent of Language
+    | Street of Language
+    | Gender of Language
+    | Currency of Language
+
+/// Returns a single item randomly the source for each type of fake data.
+let getRandomSingleItem fake =
+    let uri = 
+        match fake with 
+        | City language -> sprintf "%s%s/cities" baseUri language
+        | Country language -> sprintf "%s%s/countries" baseUri language
+        | Continent language -> sprintf "%s%s/continents" baseUri language
+        | Street language -> sprintf "%s%s/streets" baseUri language
+        | Gender language -> sprintf "%s%s/genders" baseUri language
+        | Currency language -> sprintf "%s%s/currencies" baseUri language
+    cache.GetOrAdd (uri, Func<string, string seq> (getRandomLines))
+
 /// Start the server, passing it a web part, basically an HTTP handler function.
-let startServer getACityByLanguage =
+let startServer getSingleByLanguage =
 
     let app = 
         choose
             [ GET >=> choose
-                [ pathScan "/random/city/%s" getACityByLanguage >=> setMimeType "text/plain" ]
+                [ 
+                    pathScan "/random/city/%s" (getSingleByLanguage City) >=> setMimeType "text/plain"
+                    pathScan "/random/country/%s" (getSingleByLanguage Country) >=> setMimeType "text/plain"
+                    pathScan "/random/continent/%s" (getSingleByLanguage Continent)  >=> setMimeType "text/plain"
+                    pathScan "/random/street/%s" (getSingleByLanguage Street) >=> setMimeType "text/plain"
+                    pathScan "/random/gender/%s" (getSingleByLanguage Gender) >=> setMimeType "text/plain"
+                    pathScan "/random/currency/%s" (getSingleByLanguage Currency) >=> setMimeType "text/plain"
+                ]
             ]
 
-    let port = "8080"
+    let port = System.Environment.GetEnvironmentVariable "LISTEN_PORT" |> function
+               | null | "" -> "8080"
+               | s -> s
     let address = System.Net.IPAddress.Any
     startWebServer { defaultConfig with hideHeader=true; bindings = [HttpBinding.create HTTP address (Sockets.Port.Parse port)] } app
 
-/// Function to get a random city.  Needs to cache, but works.
-let getRandomCity lang = 
-    async {
-        let! cities = getCityData lang
-        let arr = cities |> Seq.toArray
-        let len = arr.Length
-        return arr.[rng.Next len]
-    }
-
 /// The Suave web part - an HTTP handler.  Deals with input checks and the HTTP response codes.
-let getACityWebPart lang = 
+let getSingleItemWebPart (l2f:Language->Fake) (lang:string) = 
     fun (ctx:HttpContext) ->
         async {
             match lang with 
             | "en" | "ru" as lang ->
-                let! city = getRandomCity lang
-                return! OK city ctx
+                let item =
+                    lang |> l2f |> getRandomSingleItem |> Seq.head
+                return! OK item ctx
             | _ -> return! BAD_REQUEST "Only 'en' or 'ru' language are supported." ctx
         }
 
@@ -91,13 +121,13 @@ let main argv =
     { Title="hello"; Schema="world" } 
     |> JsonConvert.SerializeObject
     |> printfn "%s"
-    getPages "../deluge.json" |> Array.iter (fun p -> printfn "%A" p)
-    async {
-        let! russianCities = getCityData "ru"
-        russianCities |> Seq.head |> printfn "%s"
-    } |> Async.RunSynchronously
+    if File.Exists "../deluge.json" then
+        getPages "../deluge.json" |> Array.iter (fun p -> printfn "%A" p)
+    "ru" |> City |> getRandomSingleItem
+    |> Seq.head
+    |> printfn "%s"
 
     // Pass our web part to our server.
-    startServer getACityWebPart
+    startServer getSingleItemWebPart
 
     0 // return an integer exit code
