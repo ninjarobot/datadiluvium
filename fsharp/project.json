@@ -3,6 +3,7 @@
   "buildOptions": {
     "debugType": "portable",
     "emitEntryPoint": true,
+    "outputName": "datadiluvium",
     "compilerName": "fsc",
     "compile": {
       "includeFiles": [
@@ -17,7 +18,6 @@
     "netcoreapp1.1": {
       "dependencies": {
         "Microsoft.NETCore.App": {
-          "type": "platform",
           "version": "1.1.0"
         },
         "Microsoft.FSharp.Core.netcore": "1.0.0-alpha-*"
@@ -28,5 +28,11 @@
     "Suave": "2.0.2",
     "Newtonsoft.Json": "9.0.1",
     "System.Net.Http": "4.3.0"
+  },
+  "runtimes": {
+    "win10-x64": {},
+    "osx.10.11-x64": {},
+    "ubuntu.14.04-x64": {},
+    "debian.8-x64": {}
   }
 }
