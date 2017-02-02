@@ -22,8 +22,8 @@ resource "google_container_cluster" "development" {
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring"
     ]
-    machine_type = "f1-micro"
-    // machine_type = "g1-small"
+    //machine_type = "f1-micro"
+    machine_type = "g1-small"
     // machine_type = "n1-standard-2"
     // machine_type = "n1-standard-16"
   }
