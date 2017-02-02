@@ -20,5 +20,5 @@ resource "google_dns_record_set" "dronedatadiluviumcom" {
   type = "A"
   ttl = 5
   rrdatas = [
-    "35.185.193.72"]
+    "104.199.117.117"]
 }

@@ -1,5 +1,5 @@
-resource "google_container_cluster" "development" {
-  name = "development-systems"
+resource "google_container_cluster" "drone" {
+  name = "drone"
   zone = "us-west1-b"
   initial_node_count = 3
 
