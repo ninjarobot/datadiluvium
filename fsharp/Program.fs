@@ -18,6 +18,7 @@ module Program =
         |> JsonConvert.DeserializeObject<Page array>
 
 
+    open PostgresqlGenerator
     /// Start the server, passing it a web part, basically an HTTP handler function.
     [<EntryPoint>]
     let main argv = 
@@ -30,6 +31,32 @@ module Program =
         |> Seq.head
         |> printfn "%s"
 
+        // As an example, here is some generated SQL:
+        let sql = PostgresqlGenerator.generateData {
+            RequestedData=
+                [
+                {
+                    TableName="places"
+                    Columns=
+                        [
+                        { Name="street_num"; Source=Number }
+                        { Name="street"; Source=Street("en") }
+                        { Name="city"; Source=City("en") }
+                        { Name="country"; Source=Country("en") }
+                        ]
+                }, 10
+                {
+                    TableName="sofware_releases"
+                    Columns=
+                        [
+                        { Name="version"; Source=Number }
+                        { Name="code_name"; Source=City("en") }
+                        ]
+                }, 25
+                ]
+            }
+        printfn "Generated SQL: \n\n%s" sql
+        
         // Pass our web part to our server.
         WebApi.startServer WebApi.getSingleItemWebPart
 

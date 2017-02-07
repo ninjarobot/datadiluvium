@@ -25,7 +25,7 @@ module FakeProvider =
         }
 
     /// Random number generator - we just need one of these for our application.
-    let private rng = System.Random ()
+    let private rng = new Random()
 
     /// Retrieves the data from the url and returns a generator that picks on of the lines.
     let getRandomLines url =
@@ -40,15 +40,28 @@ module FakeProvider =
 
     let baseUri = "https://raw.githubusercontent.com/icrowley/fake/master/data/"
 
+    type Source =
+        | RemoteUri of string
+        | Local of (unit -> seq<string>)
+
     /// Returns a single item randomly the source for each type of fake data.
     let getRandomSingleItem fake =
-        let uri = 
-            match fake with 
-            | City language -> sprintf "%s%s/cities" baseUri language
-            | Country language -> sprintf "%s%s/countries" baseUri language
-            | Continent language -> sprintf "%s%s/continents" baseUri language
-            | Street language -> sprintf "%s%s/streets" baseUri language
-            | Gender language -> sprintf "%s%s/genders" baseUri language
-            | Currency language -> sprintf "%s%s/currencies" baseUri language
-        cache.GetOrAdd (uri, Func<string, string seq> (getRandomLines))
+        match fake with 
+        | City language -> sprintf "%s%s/cities" baseUri language |> RemoteUri
+        | Country language -> sprintf "%s%s/countries" baseUri language |> RemoteUri
+        | Continent language -> sprintf "%s%s/continents" baseUri language |> RemoteUri
+        | Street language -> sprintf "%s%s/streets" baseUri language |> RemoteUri
+        | Gender language -> sprintf "%s%s/genders" baseUri language |> RemoteUri
+        | Currency language -> sprintf "%s%s/currencies" baseUri language |> RemoteUri
+        | Number -> 
+            let randomNumber () = 
+                seq {
+                    while true do
+                    yield rng.Next(1000).ToString()
+                }
+            randomNumber |> Local
+        |> function
+        | RemoteUri uri ->
+            cache.GetOrAdd (uri, Func<string, string seq> (getRandomLines))
+        | Local fn -> fn ()
 

@@ -9,6 +9,7 @@
       "includeFiles": [
         "Common.fs",
         "FakeProvider.fs",
+        "PostgresqlGenerator.fs",
         "WebApi.fs",
         "Program.fs"
       ]

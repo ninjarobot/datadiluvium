@@ -14,3 +14,4 @@ module Common =
         | Street of Language
         | Gender of Language
         | Currency of Language
+        | Number
