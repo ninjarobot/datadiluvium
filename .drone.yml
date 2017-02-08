@@ -1,0 +1,7 @@
+pipeline:
+  build:
+    image: deluge
+    commands:
+      - go clean
+      - go test ./...
+      - go build
