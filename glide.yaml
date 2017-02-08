@@ -1,3 +1,5 @@
 package: github.com/adron/datadiluvium
 import:
 - package: github.com/icrowley/fake
+- package: github.com/go-kit/kit
+  version: ^0.3.0

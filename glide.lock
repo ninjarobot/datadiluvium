@@ -1,6 +1,8 @@
-hash: 2fd78ca8369405d5998e65ea4cfce94c6599e878c36fec39b85fd385552392d7
-updated: 2017-01-09T01:04:18.134993358-08:00
+hash: 57c1e6f4bbfb75b4e227baea71db6214a1be39993bf0dc3a3346386dff4a6132
+updated: 2017-02-08T00:07:29.827764351-08:00
 imports:
+- name: github.com/go-kit/kit
+  version: f66b0e13579bfc5a48b9e2a94b1209c107ea1f41
 - name: github.com/icrowley/fake
   version: 84bff6d01560fb0b5a396ba29534e93fd00d09c6
 testImports: []
