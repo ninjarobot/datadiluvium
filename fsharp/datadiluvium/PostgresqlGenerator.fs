@@ -50,16 +50,12 @@ module PostgresqlGenerator =
     /// Parameterized data to pass when executing a prepared statement
     type PreparedStatement = PreparedStatement of Prepare * InsertParameters list
 
-    /// Possible characters to be used in randomly generated alpha strings.
-    [<Literal>]
-    let private ALPHA_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
     /// Generates a random string of the specified lenght.
     let private randomString len =
-        let rng = new System.Random ()
+        let rng = System.Random ()
         seq {
-            while true do
-                yield ALPHA_CHARS.[rng.Next(ALPHA_CHARS.Length)]
+            while true do // 65 = A, 90 = Z
+                yield rng.Next (65, 91) |> char
         } |> Seq.take len |> Seq.toArray |> System.String
 
     /// Generates a dollar quoting symbol for postgres with a random 
