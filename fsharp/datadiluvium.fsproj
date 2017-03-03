@@ -3,12 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <DebugType>portable</DebugType>
-    <AssemblyName>datadiluvium</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>fsharp</PackageId>
+    <PackageId>Datadiluvium.Service</PackageId>
     <RuntimeIdentifiers>win10-x64;osx.10.11-x64;ubuntu.14.04-x64;debian.8-x64</RuntimeIdentifiers>
     <RuntimeFrameworkVersion>1.1.0</RuntimeFrameworkVersion>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionSuffix>alpha</VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>
