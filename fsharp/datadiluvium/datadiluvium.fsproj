@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.1' ">
-    <PackageReference Include="FSharp.NET.Sdk" Version="1.0.0-beta-*" PrivateAssets="All" />
+    <PackageReference Include="FSharp.NET.Sdk" Version="1.0.0-beta-060000" PrivateAssets="All" />
     <PackageReference Include="Microsoft.FSharp.Core.netcore" Version="1.0.0-rc-*" />
   </ItemGroup>
 
