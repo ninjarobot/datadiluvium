@@ -1,6 +1,6 @@
 pipeline:
   build:
-    image: datadiluvium
+    image: adron/datadiluvium
     commands:
       - go clean
       - go test ./...
