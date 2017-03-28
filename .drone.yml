@@ -1,6 +1,6 @@
 pipeline:
   build:
-    image: deluge
+    image: datadiluvium
     commands:
       - go clean
       - go test ./...
