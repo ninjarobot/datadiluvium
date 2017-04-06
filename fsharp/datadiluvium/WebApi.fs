@@ -8,6 +8,27 @@ open Suave.Successful
 open Suave.Writers
 
 module WebApi = 
+
+    (* 
+     * Types for easy deserialization by Newtonsoft.Json.  If we get fancy, 
+     * we'll switch to Chiron
+     *)
+
+    type Column = {
+        Name : string
+        Type : string
+    }
+
+    type Table = {
+        Table : string
+        Columns : Column array
+    }
+
+    type RelationalDbRequest = {
+        Database : string
+        Structure : Table array
+    }
+
     let startServer getSingleByLanguage =
 
         let app = 

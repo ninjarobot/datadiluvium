@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Compile Include="PostgresqlGeneratorTests.fs" />
+    <Compile Include="WebApiTests.fs" />
     <EmbeddedResource Include="**\*.resx" />
   </ItemGroup>
 
